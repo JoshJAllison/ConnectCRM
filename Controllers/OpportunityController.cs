@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ConnectCRM.Data;
 using ConnectCRM.Models;
-using System.Collections.Generic;
 using System;
 
 namespace ConnectCRM.Controllers
 {
-    public class OpportunityController : Controller
+    public class OpportunityController(ConnectCRMDbContext context, ILogger<OpportunityController> logger) : Controller
     {
-        // GET: /Opportunity
-        public IActionResult Index()
+        private readonly ConnectCRMDbContext _context = context;
+        private readonly ILogger<OpportunityController> _logger = logger;
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            var opportunities = new List<Opportunity>
-            {
-                new() { Id = 1, Name = "Contoso Upgrade Deal", Amount = 50000, Stage = "Proposal", CloseDate = DateTime.UtcNow.AddMonths(1), AccountId = 1 },
-                new() { Id = 2, Name = "Fabrikam New System", Amount = 120000, Stage = "Negotiation", CloseDate = DateTime.UtcNow.AddMonths(2), AccountId = 2 }
-            };
+            var opportunities = await _context.Opportunities.Include(o => o.Account).ToListAsync();
             return View(opportunities);
         }
     }
