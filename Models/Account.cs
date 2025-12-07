@@ -19,5 +19,8 @@
 
         // Navigation property: 1:N relationship with Contacts
         public List<Contact> Contacts { get; set; } = new();
+
+        // Navigation property: 1:N relationship with Opportunities
+        public List<Opportunity> Opportunities { get; set; } = new();
     }
 }
