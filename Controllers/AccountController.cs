@@ -25,6 +25,8 @@ namespace ConnectCRM.Controllers
             }
 
             var account = await context.Accounts
+                .Include(a => a.Contacts)       // Include the list of contacts
+                .Include(a => a.Opportunities)  // Include the list of opportunities
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (account == null)
             {

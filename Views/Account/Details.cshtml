@@ -1,7 +1,7 @@
 ﻿@model ConnectCRM.Models.Account
 
 @{
-    ViewData["Title"] = "Account Details";
+    ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
@@ -66,7 +66,61 @@
         </dd>
     </dl>
 </div>
-<div>
+
+<hr />
+
+<div class="mt-4">
+    <h4>Contacts</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model.Contacts)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => contact.FirstName) @Html.DisplayFor(modelItem => contact.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => contact.Phone)</td>
+                    <td><a asp-controller="Contact" asp-action="Details" asp-route-id="@contact.Id">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-4">
+    <h4>Opportunities</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stage</th>
+                <th>Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var opportunity in Model.Opportunities)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => opportunity.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => opportunity.Stage)</td>
+                    <td>@Html.DisplayFor(modelItem => opportunity.Amount)</td>
+                    <td><a asp-controller="Opportunity" asp-action="Details" asp-route-id="@opportunity.Id">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="mt-4">
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
