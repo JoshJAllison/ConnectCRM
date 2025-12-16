@@ -1,8 +1,93 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ConnectCRM.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">CRM Dashboard</h1>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Accounts</div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.TotalAccounts</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Total Contacts</div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.TotalContacts</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Open Opportunities</div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.OpenOpportunities</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Revenue (Won)</div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.TotalRevenueWon.ToString("C")</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h4>Recent Accounts</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Industry</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model.RecentAccounts)
+                {
+                    <tr>
+                        <td>@account.Name</td>
+                        <td>@account.Industry</td>
+                        <td><a asp-controller="Account" asp-action="Details" asp-route-id="@account.Id">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>High-Value Opportunities</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Opportunity Name</th>
+                    <th>Account</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var opp in Model.HighValueOpportunities)
+                {
+                    <tr>
+                        <td>@opp.Name</td>
+                        <td>@opp.Account?.Name</td>
+                        <td>@opp.Amount.ToString("C")</td>
+                        <td><a asp-controller="Opportunity" asp-action="Details" asp-route-id="@opp.Id">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,15 +1,32 @@
 using System.Diagnostics;
-using ConnectCRM.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ConnectCRM.Data;
+using ConnectCRM.Models;
 
 namespace ConnectCRM.Controllers
 {
-    public class HomeController(ILogger<HomeController> logger) : Controller
+    public class HomeController(ILogger<HomeController> logger, ConnectCRMDbContext context) : Controller
     {
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var dashboardViewModel = new DashboardViewModel
+            {
+                TotalAccounts = await context.Accounts.CountAsync(),
+                TotalContacts = await context.Contacts.CountAsync(),
+                OpenOpportunities = await context.Opportunities.CountAsync(o => o.Stage != "Closed Won" && o.Stage != "Closed Lost"),
+                TotalRevenueWon = await context.Opportunities.Where(o => o.Stage == "Closed Won").SumAsync(o => o.Amount),
+                RecentAccounts = await context.Accounts.OrderByDescending(a => a.Id).Take(5).ToListAsync(),
+                HighValueOpportunities = await context.Opportunities
+                                                    .Include(o => o.Account)
+                                                    .Where(o => o.Stage != "Closed Won" && o.Stage != "Closed Lost")
+                                                    .OrderByDescending(o => o.Amount)
+                                                    .Take(5)
+                                                    .ToListAsync()
+            };
+
+            return View(dashboardViewModel);
         }
 
         [HttpGet]
