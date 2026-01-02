@@ -8,10 +8,20 @@ namespace ConnectCRM.Controllers
     public class AccountController(ConnectCRMDbContext context, ILogger<AccountController> logger) : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var accounts = await context.Accounts.ToListAsync();
-            return View(accounts);
+            ViewData["CurrentFilter"] = searchString;
+
+            var accounts = from a in context.Accounts
+                           select a;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                accounts = accounts.Where(a => a.Name.Contains(searchString)
+                                       || a.Industry.Contains(searchString));
+            }
+
+            return View(await accounts.AsNoTracking().ToListAsync());
         }
 
         // GET: Account/Details/5
@@ -25,8 +35,9 @@ namespace ConnectCRM.Controllers
             }
 
             var account = await context.Accounts
-                .Include(a => a.Contacts)       // Include the list of contacts
-                .Include(a => a.Opportunities)  // Include the list of opportunities
+                .Include(a => a.Contacts)
+                .Include(a => a.Opportunities)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (account == null)
             {
@@ -124,6 +135,7 @@ namespace ConnectCRM.Controllers
             }
 
             var account = await context.Accounts
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (account == null)
             {
