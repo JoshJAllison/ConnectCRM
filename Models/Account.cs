@@ -24,7 +24,7 @@ namespace ConnectCRM.Models
         [Required]
         public string Country { get; set; } = string.Empty;
 
-        
+
         public List<Contact> Contacts { get; set; } = new();
         public List<Opportunity> Opportunities { get; set; } = new();
     }
