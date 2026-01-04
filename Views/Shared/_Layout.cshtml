@@ -5,43 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ConnectCRM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ConnectCRM.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="sidebar">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ConnectCRM</a>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Index">Accounts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-area="" asp-controller="Contact" asp-action="Index">Contacts</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-area="" asp-controller="Opportunity" asp-action="Index">Opportunities</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <div class="container-fluid">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button id="sidebar-toggle" class="btn btn-light">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Index"><i class="fa-solid fa-building"></i> <span>Accounts</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Contact" asp-action="Index"><i class="fa-solid fa-address-book"></i> <span>Contacts</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Opportunity" asp-action="Index"><i class="fa-solid fa-handshake"></i> <span>Opportunities</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-shield-halved"></i> <span>Privacy</span></a>
+                </li>
+            </ul>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container-fluid">
-                &copy; 2025 - ConnectCRM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ConnectCRM</a>
+                <div class="profile-section">
+                    <div class="profile-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <main role="main" class="main-content">
+                @RenderBody()
+            </main>
+
+            <footer class="footer">
+                <div class="container">
+                    &copy; 2025 - ConnectCRM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+        </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
