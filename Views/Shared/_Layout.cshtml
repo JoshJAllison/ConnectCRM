@@ -5,58 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ConnectCRM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ConnectCRM.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
+    }
+
     <div id="wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="sidebar-header">
-                <button id="sidebar-toggle" class="btn btn-light">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+            <div class="sidebar-brand">
+                <a asp-controller="Home" asp-action="Index">ConnectCRM</a>
             </div>
-            <ul class="navbar-nav flex-grow-1">
+            <ul class="sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+                    <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                        <span>Dashboard</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Index"><i class="fa-solid fa-building"></i> <span>Accounts</span></a>
+                    <a class="nav-link @(currentController == "Account" ? "active" : "")" asp-controller="Account" asp-action="Index">
+                        <i class="fa-solid fa-building fa-fw"></i>
+                        <span>Accounts</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Contact" asp-action="Index"><i class="fa-solid fa-address-book"></i> <span>Contacts</span></a>
+                    <a class="nav-link @(currentController == "Contact" ? "active" : "")" asp-controller="Contact" asp-action="Index">
+                        <i class="fa-solid fa-address-book fa-fw"></i>
+                        <span>Contacts</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Opportunity" asp-action="Index"><i class="fa-solid fa-handshake"></i> <span>Opportunities</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-shield-halved"></i> <span>Privacy</span></a>
+                    <a class="nav-link @(currentController == "Opportunity" ? "active" : "")" asp-controller="Opportunity" asp-action="Index">
+                        <i class="fa-solid fa-handshake fa-fw"></i>
+                        <span>Opportunities</span>
+                    </a>
                 </li>
             </ul>
+            <div class="sidebar-footer">
+                <button id="sidebar-toggle" title="Toggle Sidebar">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Main Content Area -->
-        <div class="content-wrapper">
+        <div class="main-content-wrapper">
             <header class="top-bar">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ConnectCRM</a>
+                <h1 class="page-title">@ViewData["Title"]</h1>
                 <div class="profile-section">
-                    <div class="profile-icon">
+                    <div class="profile-icon" title="Profile">
                         <i class="fa-solid fa-user"></i>
                     </div>
                 </div>
             </header>
 
-            <main role="main" class="main-content">
+            <main class="content-body" role="main">
                 @RenderBody()
             </main>
-
-            <footer class="footer">
-                <div class="container">
-                    &copy; 2025 - ConnectCRM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </div>
-            </footer>
         </div>
     </div>
 
