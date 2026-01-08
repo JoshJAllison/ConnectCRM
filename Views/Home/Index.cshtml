@@ -9,35 +9,54 @@
 </div>
 
 <div class="row mt-4">
-    <div class="col-md-3">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-header">Total Accounts</div>
-            <div class="card-body">
-                <h4 class="card-title">@Model.TotalAccounts</h4>
+    <!-- Total Accounts Card -->
+    <div class="col-md-3 mb-4">
+        <div class="stat-card stat-card-primary">
+            <div class="stat-card-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-card-info">
+                <div class="stat-label">TOTAL ACCOUNTS</div>
+                <div class="stat-value">@Model.TotalAccounts</div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-info mb-3">
-            <div class="card-header">Total Contacts</div>
-            <div class="card-body">
-                <h4 class="card-title">@Model.TotalContacts</h4>
+
+    <!-- Total Contacts Card -->
+    <div class="col-md-3 mb-4">
+        <div class="stat-card stat-card-info">
+            <div class="stat-card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-card-info">
+                <div class="stat-label">TOTAL CONTACTS</div>
+                <div class="stat-value">@Model.TotalContacts</div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3">
-            <div class="card-header">Open Opportunities</div>
-            <div class="card-body">
-                <h4 class="card-title">@Model.OpenOpportunities</h4>
+
+    <!-- Open Opportunities Card -->
+    <div class="col-md-3 mb-4">
+        <div class="stat-card stat-card-warning">
+            <div class="stat-card-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <div class="stat-card-info">
+                <div class="stat-label">OPEN OPPORTUNITIES</div>
+                <div class="stat-value">@Model.OpenOpportunities</div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-header">Total Revenue (Won)</div>
-            <div class="card-body">
-                <h4 class="card-title">@Model.TotalRevenueWon.ToString("C")</h4>
+
+    <!-- Total Revenue Card -->
+    <div class="col-md-3 mb-4">
+        <div class="stat-card stat-card-success">
+            <div class="stat-card-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-card-info">
+                <div class="stat-label">TOTAL REVENUE (WON)</div>
+                <div class="stat-value">@Model.TotalRevenueWon.ToString("C0")</div>
             </div>
         </div>
     </div>
